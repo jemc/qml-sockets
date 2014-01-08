@@ -12,7 +12,8 @@ UI_DIR = Charts/.ui
 
 HEADERS += src/piechart.h \
            src/pieslice.h \
-           src/chartsplugin.h
+           src/chartsplugin.h \
+           src/socket.h
 
 SOURCES += src/piechart.cpp \
            src/pieslice.cpp \

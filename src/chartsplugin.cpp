@@ -41,12 +41,17 @@
 //![0]
 #include "piechart.h"
 #include "pieslice.h"
+
+#include "socket.h"
+
 #include <qqml.h>
 
 void ChartsPlugin::registerTypes(const char *uri)
 {
     qmlRegisterType<PieChart>(uri, 1, 0, "PieChart");
     qmlRegisterType<PieSlice>(uri, 1, 0, "PieSlice");
+    
+    qmlRegisterType<SomeSocket>(uri, 1, 0, "Socket");
 }
 
 //![0]
