@@ -10,7 +10,13 @@ Rectangle {
         id: socket
         host: "127.0.0.1"
         port: 4998
+        
+        onError: console.log("ERROR: %1".arg(message))
+        onLog:   console.log("LOG:   %1".arg(message))
+        
+        Component.onCompleted: start()
     }
+    
     
     Column {
         Text { font.pointSize:20; color:"yellow"; text:socket.enabled }
