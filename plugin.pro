@@ -2,16 +2,16 @@ TEMPLATE = lib
 CONFIG += plugin
 QT += qml quick
 
-TARGET = $$qtLibraryTarget(chartsplugin)
+TARGET = $$qtLibraryTarget(socketsplugin)
 
-DESTDIR = Charts
+DESTDIR = Sockets
 
 OBJECTS_DIR = $$DESTDIR/.obj
 MOC_DIR = $$DESTDIR/.moc
 RCC_DIR = $$DESTDIR/.rcc
 UI_DIR = $$DESTDIR/.ui
 
-HEADERS += src/chartsplugin.h \
+HEADERS += src/socketsplugin.h \
            src/socket.h
 
 target.path=$$DESTDIR

@@ -5,10 +5,10 @@
 
 #include "socket.h"
 
-class ChartsPlugin : public QQmlExtensionPlugin
+class SocketsPlugin : public QQmlExtensionPlugin
 {
     Q_OBJECT
-    Q_PLUGIN_METADATA(IID "org.qt-project.Qt.QQmlExtensionInterface")
+    Q_PLUGIN_METADATA(IID "org.jemc.qml.Sockets")
     
 public:
     
