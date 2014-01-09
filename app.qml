@@ -15,8 +15,7 @@ Rectangle {
         
         onError: 
             console.log("ERROR: %1".arg(message))
-        onLog:   
-            console.log("LOG:   %1".arg(message))
+            
         onRead:  
             console.log("READ:  %1".arg(message))
         

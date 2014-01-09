@@ -19,7 +19,6 @@ signals:
     void stateChanged();
     
     void error(int socketError, const QString &message);
-    void log(const QString &message);
     
     void read(const QString &message);
     void connected();
