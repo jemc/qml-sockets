@@ -14,6 +14,6 @@ public:
     
     void registerTypes(const char *uri)
     {
-        qmlRegisterType<SomeSocket>(uri, 1, 0, "Socket");
+        qmlRegisterType<TCPSocket>(uri, 1, 0, "TCPSocket");
     };
 };

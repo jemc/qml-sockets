@@ -8,7 +8,7 @@ Rectangle {
     width: 300; height: 200
     color: "black"
     
-    Socket {
+    TCPSocket {
         id: socket
         host: "www.google.com"
         port: 80
@@ -36,7 +36,7 @@ Rectangle {
         Text { font.pointSize:20; color:"yellow"; text:socket.host }
         Text { font.pointSize:20; color:"yellow"; text:socket.port }
         Text { font.pointSize:20; color:"yellow"; text:socket.state }
-        Button { text: "Connect"; onClicked: socket.connect() }
+        Button { text: "Connect"; checkable:true; onClicked: socket.connect() }
     }
     
 }

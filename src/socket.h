@@ -3,7 +3,7 @@
 
 #include <unistd.h>
 
-class SomeSocket : public QObject
+class TCPSocket : public QObject
 {
     Q_OBJECT
     Q_ENUMS(QAbstractSocket::SocketState)
@@ -45,13 +45,13 @@ public slots:
         m_socket = new QTcpSocket(this);
         
         QObject::connect(m_socket, &QAbstractSocket::stateChanged,
-                         this,      &SomeSocket::privStateChanged);
+                         this,       &TCPSocket::privStateChanged);
         QObject::connect(m_socket, &QAbstractSocket::readyRead,
-                         this,      &SomeSocket::privReadyRead);
+                         this,       &TCPSocket::privReadyRead);
         QObject::connect(m_socket, &QAbstractSocket::connected,
-                         this,      &SomeSocket::privConnected);
+                         this,       &TCPSocket::privConnected);
         QObject::connect(m_socket, &QAbstractSocket::disconnected,
-                         this,      &SomeSocket::privDisconnected);
+                         this,       &TCPSocket::privDisconnected);
         
         m_socket->connectToHost(m_host, m_port);
         
