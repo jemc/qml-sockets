@@ -1,7 +1,6 @@
 
 #include <QtNetwork>
 
-#include <unistd.h>
 
 class TCPSocket : public QObject
 {
