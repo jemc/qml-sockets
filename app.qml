@@ -1,5 +1,7 @@
 
 import QtQuick 2.0
+import QtQuick.Controls 1.1
+
 import Sockets 1.0
 
 Rectangle {
@@ -34,6 +36,8 @@ Rectangle {
         Text { font.pointSize:20; color:"yellow"; text:socket.host }
         Text { font.pointSize:20; color:"yellow"; text:socket.port }
         Text { font.pointSize:20; color:"yellow"; text:socket.state }
+        Button { text: "Connect"; onClicked: socket.connect() }
     }
+    
 }
 
