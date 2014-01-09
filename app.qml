@@ -8,20 +8,32 @@ Rectangle {
     
     Socket {
         id: socket
-        host: "127.0.0.1"
-        port: 4998
+        host: "www.google.com"
+        port: 80
         
-        onError: console.log("ERROR: %1".arg(message))
-        onLog:   console.log("LOG:   %1".arg(message))
+        onError: 
+            console.log("ERROR: %1".arg(message))
+        onLog:   
+            console.log("LOG:   %1".arg(message))
+        onRead:  
+            console.log("READ:  %1".arg(message))
         
-        Component.onCompleted: start()
+        onConnected: {
+            console.log("CONNECTED")
+            write("HEAD / HTTP/1.0\r\n\r\n\r\n\r\n")
+        }
+        
+        onDisconnected:
+            console.log("DISCONNECTED")
+        
+        Component.onCompleted: 
+            connect()
     }
     
-    
     Column {
-        Text { font.pointSize:20; color:"yellow"; text:socket.enabled }
         Text { font.pointSize:20; color:"yellow"; text:socket.host }
         Text { font.pointSize:20; color:"yellow"; text:socket.port }
+        Text { font.pointSize:20; color:"yellow"; text:socket.state }
     }
 }
 
