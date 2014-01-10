@@ -29,21 +29,18 @@ public:
         m_socket = new QUdpSocket(this);
         
         QObject::connect(m_socket, &QAbstractSocket::stateChanged,
-            [=](QAbstractSocket::SocketState socketState)
-            { setProperty("state", socketState); });
+            [=](QAbstractSocket::SocketState state)
+            { setProperty("state", state);
+              if(state==QAbstractSocket::BoundState) emit connected(); });
         
         QObject::connect(m_socket, &QAbstractSocket::readyRead,
             [=]()
             { while(m_socket->hasPendingDatagrams()) {
-                    QByteArray datagram;
-                    datagram.resize(m_socket->pendingDatagramSize());
-                    m_socket->readDatagram(datagram.data(), datagram.size());
-                    emit read(datagram.data());
-                } });
-        
-        QObject::connect(m_socket, &QAbstractSocket::connected,
-            [=]()
-            { emit connected(); });
+                  QByteArray datagram;
+                  datagram.resize(m_socket->pendingDatagramSize());
+                  m_socket->readDatagram(datagram.data(), datagram.size());
+                  emit read(datagram.data());
+              } });
         
         QObject::connect(m_socket, &QAbstractSocket::disconnected,
             [=]()
@@ -58,6 +55,12 @@ public slots:
     {
         m_socket->bind(QHostAddress::AnyIPv4, m_port, QUdpSocket::ShareAddress);
         m_socket->joinMulticastGroup(QHostAddress(m_group));
+    }
+    
+    void disconnect()
+    {
+        m_socket->leaveMulticastGroup(QHostAddress(m_group));
+        m_socket->disconnectFromHost();
     }
     
     void write(QString message)

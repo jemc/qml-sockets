@@ -38,8 +38,9 @@ Rectangle {
         Text { font.pointSize:20; color:"yellow"; text:socket.port }
         Text { font.pointSize:20; color:"yellow"; text:socket.state }
         Text { font.pointSize:20; color:"yellow"; text:socket.latest }
-        Button { text: "Connect"; onClicked: socket.connect() }
-        Button { text: "Write";   onClicked: socket.write("LOOK AT ME") }
+        Button { text: "Connect";    onClicked: socket.connect() }
+        Button { text: "Disconnect"; onClicked: socket.disconnect() }
+        Button { text: "Write";      onClicked: socket.write("LOOK AT ME") }
     }
     
 }
