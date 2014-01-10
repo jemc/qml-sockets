@@ -15,5 +15,6 @@ public:
     void registerTypes(const char *uri)
     {
         qmlRegisterType<TCPSocket>(uri, 1, 0, "TCPSocket");
+        qmlRegisterType<UDPMulticastSocket>(uri, 1, 0, "UDPMulticastSocket");
     };
 };

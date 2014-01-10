@@ -8,12 +8,12 @@ Rectangle {
     width: 300; height: 200
     color: "black"
     
-    TCPSocket {
+    UDPMulticastSocket {
         id: socket
-        host: "localhost"
-        port: 4998
+        group: "239.255.250.250"
+        port: 9131
         
-        property var latest
+        property var latest: ""
         
         onError: 
             console.log("ERROR: %1".arg(message))
@@ -36,7 +36,7 @@ Rectangle {
     }
     
     Column {
-        Text { font.pointSize:20; color:"yellow"; text:socket.host }
+        Text { font.pointSize:20; color:"yellow"; text:socket.group }
         Text { font.pointSize:20; color:"yellow"; text:socket.port }
         Text { font.pointSize:20; color:"yellow"; text:socket.state }
         Text { font.pointSize:20; color:"yellow"; text:socket.latest }
