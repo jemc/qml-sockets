@@ -1,5 +1,6 @@
 TEMPLATE = lib
 CONFIG += plugin
+CONFIG += c++11
 QT += qml quick
 
 TARGET = $$qtLibraryTarget(socketsplugin)

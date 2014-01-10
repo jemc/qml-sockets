@@ -24,32 +24,27 @@ signals:
     void connected();
     void disconnected();
     
-private slots:
-    void privStateChanged(QAbstractSocket::SocketState socketState)
-    {   setProperty("state", socketState); };
-    
-    void privReadyRead()
-    {   emit read(m_socket->readAll()); }
-    
-    void privConnected()
-    {   emit connected(); }
-    
-    void privDisconnected()
-    {   emit disconnected(); }
-    
 public:
     TCPSocket()
     {
         m_socket = new QTcpSocket(this);
         
         QObject::connect(m_socket, &QAbstractSocket::stateChanged,
-                         this,       &TCPSocket::privStateChanged);
+            [=](QAbstractSocket::SocketState socketState)
+            { setProperty("state", socketState); });
+        
         QObject::connect(m_socket, &QAbstractSocket::readyRead,
-                         this,       &TCPSocket::privReadyRead);
+            [=]()
+            { emit read(m_socket->readAll()); });
+        
         QObject::connect(m_socket, &QAbstractSocket::connected,
-                         this,       &TCPSocket::privConnected);
+            [=]()
+            { emit connected(); });
+        
         QObject::connect(m_socket, &QAbstractSocket::disconnected,
-                         this,       &TCPSocket::privDisconnected);
+            [=]()
+            { emit disconnected(); });
+        
     };
     
     ~TCPSocket()
