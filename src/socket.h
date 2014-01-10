@@ -117,13 +117,17 @@ public:
     
 public slots:
     void connect()
-    { 
+    {
         m_socket->bind(QHostAddress::AnyIPv4, m_port, QUdpSocket::ShareAddress);
         m_socket->joinMulticastGroup(QHostAddress(m_group));
     }
     
     void write(QString message)
-    { m_socket->write(message.toLocal8Bit()); }
+    {
+        QByteArray datagram = message.toLocal8Bit();
+        m_socket->writeDatagram(datagram.data(), datagram.size(),
+                                QHostAddress(m_group), m_port);
+    }
     
 public:
     QString m_group;

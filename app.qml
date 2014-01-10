@@ -23,10 +23,8 @@ Rectangle {
             latest = message
         }
         
-        onConnected: {
+        onConnected:
             console.log("CONNECTED")
-            // write("HEAD / HTTP/1.0\r\n\r\n\r\n\r\n")
-        }
         
         onDisconnected:
             console.log("DISCONNECTED")
@@ -41,6 +39,7 @@ Rectangle {
         Text { font.pointSize:20; color:"yellow"; text:socket.state }
         Text { font.pointSize:20; color:"yellow"; text:socket.latest }
         Button { text: "Connect"; onClicked: socket.connect() }
+        Button { text: "Write";   onClicked: socket.write("LOOK AT ME") }
     }
     
 }
