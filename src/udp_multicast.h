@@ -30,21 +30,24 @@ public:
         
         QObject::connect(m_socket, &QAbstractSocket::stateChanged,
             [=](QAbstractSocket::SocketState state)
-            { setProperty("state", state);
-              if(state==QAbstractSocket::BoundState) emit connected(); });
+            {
+                setProperty("state", state);
+                if(state==QAbstractSocket::BoundState) emit connected();
+            });
         
         QObject::connect(m_socket, &QAbstractSocket::readyRead,
             [=]()
-            { while(m_socket->hasPendingDatagrams()) {
-                  QByteArray datagram;
-                  datagram.resize(m_socket->pendingDatagramSize());
-                  m_socket->readDatagram(datagram.data(), datagram.size());
-                  emit read(datagram.data());
-              } });
+            {
+                while(m_socket->hasPendingDatagrams()) {
+                    QByteArray datagram;
+                    datagram.resize(m_socket->pendingDatagramSize());
+                    m_socket->readDatagram(datagram.data(), datagram.size());
+                    emit read(datagram.data());
+                } 
+            });
         
         QObject::connect(m_socket, &QAbstractSocket::disconnected,
-            [=]()
-            { emit disconnected(); });
+            [=]() { emit disconnected(); });
     };
     
     ~UDPMulticastSocket()
