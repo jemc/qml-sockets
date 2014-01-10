@@ -44,33 +44,22 @@ public:
         QObject::connect(m_socket, &QAbstractSocket::disconnected,
             [=]()
             { emit disconnected(); });
-        
     };
     
     ~TCPSocket()
-    {
-        delete m_socket;
-        m_socket = NULL;
-    }
-    
+    { delete m_socket; m_socket = NULL; }
     
 public slots:
     void connect()
-    {
-        m_socket->connectToHost(m_host, m_port);
-    }
+    { m_socket->connectToHost(m_host, m_port); }
     
     void write(QString message)
-    {
-        m_socket->write(message.toLocal8Bit());
-    }
+    { m_socket->write(message.toLocal8Bit()); }
     
 public:
     QString m_host;
     uint    m_port;
-    
     QAbstractSocket::SocketState m_state;
-    
     QAbstractSocket *m_socket = NULL;
 };
 
