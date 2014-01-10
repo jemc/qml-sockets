@@ -29,20 +29,17 @@ public:
         m_socket = new QTcpSocket(this);
         
         QObject::connect(m_socket, &QAbstractSocket::stateChanged,
-            [=](QAbstractSocket::SocketState socketState)
-            { setProperty("state", socketState); });
+            [=](QAbstractSocket::SocketState state)
+            { setProperty("state", state); });
         
         QObject::connect(m_socket, &QAbstractSocket::readyRead,
-            [=]()
-            { emit read(m_socket->readAll()); });
+            [=]() { emit read(m_socket->readAll()); });
         
         QObject::connect(m_socket, &QAbstractSocket::connected,
-            [=]()
-            { emit connected(); });
+            [=]() { emit connected(); });
         
         QObject::connect(m_socket, &QAbstractSocket::disconnected,
-            [=]()
-            { emit disconnected(); });
+            [=]() { emit disconnected(); });
     };
     
     ~TCPSocket()
