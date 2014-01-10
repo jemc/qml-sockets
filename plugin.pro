@@ -11,18 +11,19 @@ TARGET = $$qtLibraryTarget(socketsplugin)
 DESTDIR = Sockets
 
 OBJECTS_DIR = $$DESTDIR/.obj
-MOC_DIR = $$DESTDIR/.moc
-RCC_DIR = $$DESTDIR/.rcc
-UI_DIR = $$DESTDIR/.ui
+MOC_DIR     = $$DESTDIR/.moc
+RCC_DIR     = $$DESTDIR/.rcc
+UI_DIR      = $$DESTDIR/.ui
 
 HEADERS += src/socketsplugin.h \
-           src/tcp.h \
+           src/tcp.h           \
            src/udp_multicast.h
 
-target.path=$$DESTDIR
-qmldir.files=$$PWD/qmldir
-qmldir.path=$$DESTDIR
-INSTALLS += target qmldir
+target.path  = $$DESTDIR
+qmldir.files = $$PWD/qmldir
+qmldir.path  = $$DESTDIR
+
+INSTALLS    += target qmldir
 
 OTHER_FILES += src/qmldir
 
