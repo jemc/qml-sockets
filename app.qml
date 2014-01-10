@@ -13,11 +13,15 @@ Rectangle {
         host: "localhost"
         port: 4998
         
+        property var latest
+        
         onError: 
             console.log("ERROR: %1".arg(message))
             
-        onRead:  
+        onRead: {
             console.log("READ:  %1".arg(message))
+            latest = message
+        }
         
         onConnected: {
             console.log("CONNECTED")
@@ -35,6 +39,7 @@ Rectangle {
         Text { font.pointSize:20; color:"yellow"; text:socket.host }
         Text { font.pointSize:20; color:"yellow"; text:socket.port }
         Text { font.pointSize:20; color:"yellow"; text:socket.state }
+        Text { font.pointSize:20; color:"yellow"; text:socket.latest }
         Button { text: "Connect"; onClicked: socket.connect() }
     }
     
