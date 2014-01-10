@@ -63,10 +63,6 @@ public slots:
     void connect()
     {
         m_socket->connectToHost(m_host, m_port);
-        
-        if (!m_socket->waitForConnected(5000)) {
-            emit error(m_socket->error(), m_socket->errorString());
-        }
     }
     
     void write(QString message)
