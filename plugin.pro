@@ -13,7 +13,8 @@ RCC_DIR = $$DESTDIR/.rcc
 UI_DIR = $$DESTDIR/.ui
 
 HEADERS += src/socketsplugin.h \
-           src/socket.h
+           src/tcp.h \
+           src/udp_multicast.h
 
 target.path=$$DESTDIR
 qmldir.files=$$PWD/qmldir

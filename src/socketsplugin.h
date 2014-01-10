@@ -1,9 +1,11 @@
 
 #include <QQmlExtensionPlugin>
-
 #include <qqml.h>
 
-#include "socket.h"
+
+#include "tcp.h"
+#include "udp_multicast.h"
+
 
 class SocketsPlugin : public QQmlExtensionPlugin
 {
@@ -11,7 +13,6 @@ class SocketsPlugin : public QQmlExtensionPlugin
     Q_PLUGIN_METADATA(IID "org.jemc.qml.Sockets")
     
 public:
-    
     void registerTypes(const char *uri)
     {
         qmlRegisterType<TCPSocket>(uri, 1, 0, "TCPSocket");
