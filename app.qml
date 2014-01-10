@@ -10,8 +10,8 @@ Rectangle {
     
     TCPSocket {
         id: socket
-        host: "www.google.com"
-        port: 80
+        host: "localhost"
+        port: 4998
         
         onError: 
             console.log("ERROR: %1".arg(message))
@@ -21,7 +21,7 @@ Rectangle {
         
         onConnected: {
             console.log("CONNECTED")
-            write("HEAD / HTTP/1.0\r\n\r\n\r\n\r\n")
+            // write("HEAD / HTTP/1.0\r\n\r\n\r\n\r\n")
         }
         
         onDisconnected:
@@ -35,7 +35,7 @@ Rectangle {
         Text { font.pointSize:20; color:"yellow"; text:socket.host }
         Text { font.pointSize:20; color:"yellow"; text:socket.port }
         Text { font.pointSize:20; color:"yellow"; text:socket.state }
-        Button { text: "Connect"; checkable:true; onClicked: socket.connect() }
+        Button { text: "Connect"; onClicked: socket.connect() }
     }
     
 }
