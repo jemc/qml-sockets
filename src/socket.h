@@ -1,5 +1,6 @@
 
 #include <QtNetwork>
+#include <QDebug>
 
 
 class TCPSocket : public QObject
@@ -23,7 +24,6 @@ signals:
     void connected();
     void disconnected();
     
-    
 private slots:
     void privStateChanged(QAbstractSocket::SocketState socketState)
     {   setProperty("state", socketState); };
@@ -37,8 +37,8 @@ private slots:
     void privDisconnected()
     {   emit disconnected(); }
     
-public slots:
-    void connect()
+public:
+    TCPSocket()
     {
         m_socket = new QTcpSocket(this);
         
@@ -50,7 +50,18 @@ public slots:
                          this,       &TCPSocket::privConnected);
         QObject::connect(m_socket, &QAbstractSocket::disconnected,
                          this,       &TCPSocket::privDisconnected);
-        
+    };
+    
+    ~TCPSocket()
+    {
+        delete m_socket;
+        m_socket = NULL;
+    }
+    
+    
+public slots:
+    void connect()
+    {
         m_socket->connectToHost(m_host, m_port);
         
         if (!m_socket->waitForConnected(5000)) {
@@ -69,6 +80,6 @@ public:
     
     QAbstractSocket::SocketState m_state;
     
-    QAbstractSocket *m_socket;
+    QAbstractSocket *m_socket = NULL;
 };
 
