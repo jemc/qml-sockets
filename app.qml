@@ -8,10 +8,14 @@ Rectangle {
     width: 300; height: 200
     color: "black"
     
-    UDPMulticastSocket {
+    // UDPMulticastSocket {
+        // group: "239.255.250.250"
+        // port: 9131
+    TCPSocket {
+        host: "localhost"
+        port: 4998
+        
         id: socket
-        group: "239.255.250.250"
-        port: 9131
         
         property var latest: ""
         

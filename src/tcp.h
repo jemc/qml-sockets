@@ -49,6 +49,9 @@ public slots:
     void connect()
     { m_socket->connectToHost(m_host, m_port); }
     
+    void disconnect()
+    { m_socket->disconnectFromHost(); }
+    
     void write(QString message)
     { m_socket->write(message.toLocal8Bit()); }
     
