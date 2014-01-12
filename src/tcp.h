@@ -9,15 +9,13 @@ class TCPSocket : public QObject
     
     Q_PROPERTY(QString host    MEMBER m_host    NOTIFY hostChanged)
     Q_PROPERTY(uint    port    MEMBER m_port    NOTIFY portChanged)
-    
-    Q_PROPERTY(QAbstractSocket::SocketState state MEMBER m_state NOTIFY stateChanged)
+    Q_PROPERTY(QAbstractSocket::SocketState state \
+                               MEMBER m_state   NOTIFY stateChanged)
     
 signals:
     void hostChanged();
     void portChanged();
     void stateChanged();
-    
-    void error(int socketError, const QString &message);
     
     void read(const QString &message);
     void connected();

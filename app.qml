@@ -19,9 +19,6 @@ Rectangle {
         
         property var latest: ""
         
-        onError: 
-            console.log("ERROR: %1".arg(message))
-            
         onRead: {
             console.log("READ:  %1".arg(message))
             latest = message

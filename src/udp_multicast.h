@@ -9,15 +9,13 @@ class UDPMulticastSocket : public QObject
     
     Q_PROPERTY(QString group   MEMBER m_group   NOTIFY groupChanged)
     Q_PROPERTY(uint    port    MEMBER m_port    NOTIFY portChanged)
-    
-    Q_PROPERTY(QAbstractSocket::SocketState state MEMBER m_state NOTIFY stateChanged)
+    Q_PROPERTY(QAbstractSocket::SocketState state \
+                               MEMBER m_state   NOTIFY stateChanged)
     
 signals:
     void groupChanged();
     void portChanged();
     void stateChanged();
-    
-    void error(int socketError, const QString &message);
     
     void read(const QString &message);
     void connected();
