@@ -14,7 +14,7 @@ TestCase {
         port: 80
         
         property var response: ""
-        property var expected: /HTTP\/1.1 200 OK/
+        property var expected: /HTTP\/[^\n]* OK/
         
         onConnected: write("GET / HTTP/1.1\r\nHost: %1\r\nConnection: close\r\n\r\n".arg(host))
         onRead: response += message
