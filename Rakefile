@@ -1,6 +1,10 @@
 
-task :default => :run
+task :default => :test
 
 task :run do 
-  exec "qmake plugin.pro && make && qmlscene -I . ./app.qml"
+  exec "qmake plugin.pro && make && qmlscene ./app.qml"
+end
+
+task :test do 
+  exec "qmltestrunner"
 end
