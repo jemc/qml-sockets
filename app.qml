@@ -2,7 +2,7 @@
 import QtQuick 2.0
 import QtQuick.Controls 1.1
 
-import Sockets 1.0
+import org.jemc.qml.Sockets 1.0
 
 Rectangle {
     width: 300; height: 200

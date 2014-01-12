@@ -1,2 +1,2 @@
-module Sockets
+module org.jemc.qml.Sockets
 plugin socketsplugin
