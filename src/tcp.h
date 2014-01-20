@@ -22,9 +22,12 @@ signals:
     void disconnected();
     
 public:
-    TCPSocket()
+    TCPSocket(QTcpSocket *socket = NULL)
     {
-        m_socket = new QTcpSocket(this);
+        if(socket!=NULL)
+            m_socket = socket;
+        else
+            m_socket = new QTcpSocket(this);
         
         QObject::connect(m_socket, &QAbstractSocket::stateChanged,
             [=](QAbstractSocket::SocketState state)
