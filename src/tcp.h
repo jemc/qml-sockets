@@ -1,4 +1,7 @@
 
+#ifndef QML_SOCKETS_TCP
+#define QML_SOCKETS_TCP
+
 #include <QtNetwork>
 
 
@@ -62,3 +65,5 @@ public:
     QAbstractSocket::SocketState m_state;
     QTcpSocket *m_socket = NULL;
 };
+
+#endif
