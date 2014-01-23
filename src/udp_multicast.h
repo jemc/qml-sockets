@@ -1,4 +1,7 @@
 
+#ifndef QML_SOCKETS_UDP_MULTICAST
+#define QML_SOCKETS_UDP_MULTICAST
+
 #include <QtNetwork>
 
 
@@ -77,3 +80,5 @@ public:
     QAbstractSocket::SocketState m_state;
     QUdpSocket *m_socket = NULL;
 };
+
+#endif
