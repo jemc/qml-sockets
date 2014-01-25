@@ -14,6 +14,7 @@ BUILDDIR = $$PWD/build
 
 HEADERS += $$SRCDIR/socketsplugin.h \
            $$SRCDIR/tcp.h           \
+           $$SRCDIR/tcp_server.h    \
            $$SRCDIR/udp_multicast.h
 
 OBJECTS_DIR = $$BUILDDIR/.obj
