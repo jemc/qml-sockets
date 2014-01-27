@@ -6,5 +6,5 @@ task :run do
 end
 
 task :test do 
-  exec "qmltestrunner"
+  exec "qmake plugin.pro && make && qmltestrunner"
 end
