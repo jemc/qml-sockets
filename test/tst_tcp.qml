@@ -13,6 +13,7 @@ TestCase {
         host: "www.example.com"
         port: 80
         
+        property var verified: false
         property var response: ""
         property var expected: /HTTP\/[^\n]* OK/
         
@@ -22,6 +23,7 @@ TestCase {
             test.verify(response!=undefined, "No response received")
             test.verify(response.search(expected)>=0, 
                            "Unrecognized response received: %1".arg(response))
+            verified = true
         }
     }
     
@@ -30,5 +32,6 @@ TestCase {
     function test_it() {
         socket.connect()
         wait_for_disconnect()
+        verify(socket.verified, "Disconnect hook never ran on socket.")
     }
 }
