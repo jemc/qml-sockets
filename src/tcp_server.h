@@ -43,12 +43,10 @@ public:
             
             emit clientConnected(client);
         });
-        
     };
     
     ~TCPServer()
-    {
-    }
+    { delete m_server; m_server = NULL; }
     
 public slots:
     void listen()
