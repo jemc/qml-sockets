@@ -12,8 +12,6 @@ TestCase {
         id: server
         port: 4998
         
-        // maxClients: 3
-        
         property var verified: false
         property var response: ""
         property var expected: /Thanks/

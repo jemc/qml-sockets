@@ -27,23 +27,21 @@ public:
         
         QObject::connect(m_server, &QTcpServer::newConnection,
         [=]() {
-            if(m_client)     delete m_client;
-            if(m_qml_client) delete m_qml_client;
+            TCPSocket *client = \
+                new TCPSocket(m_server->nextPendingConnection());
             
-            m_client = m_server->nextPendingConnection();
-            m_qml_client = new TCPSocket(m_client);
-            
-            QObject::connect(m_qml_client, &TCPSocket::read,
+            QObject::connect(client, &TCPSocket::read,
             [=](const QString &message) {
-                emit clientRead(m_qml_client, message);
+                emit clientRead(client, message);
             });
             
-            QObject::connect(m_qml_client, &TCPSocket::disconnected,
+            QObject::connect(client, &TCPSocket::disconnected,
             [=]() {
-                emit clientDisconnected(m_qml_client);
+                emit clientDisconnected(client);
+                delete client;
             });
             
-            emit clientConnected(m_qml_client);
+            emit clientConnected(client);
         });
         
     };
@@ -59,8 +57,6 @@ public slots:
 public:
     uint m_port;
     QTcpServer *m_server = NULL;
-    QTcpSocket *m_client = NULL;
-    TCPSocket *m_qml_client = NULL;
 };
 
 #endif
