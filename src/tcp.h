@@ -25,13 +25,25 @@ signals:
     void disconnected();
     
 public:
-    TCPSocket(QTcpSocket *socket = NULL)
+    TCPSocket()
+    { assignSocket(); };
+    
+    ~TCPSocket()
+    { delete m_socket; m_socket = NULL; }
+    
+    void assignSocket(QTcpSocket *socket = NULL)
     {
+        // Delete old socket if existent
+        if(m_socket!=NULL)
+            delete m_socket;
+        
+        // Create new socket or assign passed socket
         if(socket!=NULL)
             m_socket = socket;
         else
             m_socket = new QTcpSocket(this);
         
+        // Register event handlers
         QObject::connect(m_socket, &QAbstractSocket::stateChanged,
             [=](QAbstractSocket::SocketState state)
             { setProperty("state", state); });
@@ -44,10 +56,7 @@ public:
         
         QObject::connect(m_socket, &QAbstractSocket::disconnected,
             [=]() { emit disconnected(); });
-    };
-    
-    ~TCPSocket()
-    { delete m_socket; m_socket = NULL; }
+    }
     
 public slots:
     void connect()

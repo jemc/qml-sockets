@@ -27,8 +27,8 @@ public:
         
         QObject::connect(m_server, &QTcpServer::newConnection,
         [=]() {
-            TCPSocket *client = \
-                new TCPSocket(m_server->nextPendingConnection());
+            TCPSocket *client = new TCPSocket();
+            client->assignSocket(m_server->nextPendingConnection());
             
             QObject::connect(client, &TCPSocket::read,
             [=](const QString &message) {
