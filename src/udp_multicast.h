@@ -25,8 +25,9 @@ signals:
     void disconnected();
     
 public:
-    UDPMulticastSocket()
+    UDPMulticastSocket(QObject* parent = 0)
     {
+        (void)parent;
         m_socket = new QUdpSocket(this);
         
         QObject::connect(m_socket, &QAbstractSocket::stateChanged,

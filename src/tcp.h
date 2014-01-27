@@ -25,8 +25,8 @@ signals:
     void disconnected();
     
 public:
-    TCPSocket()
-    { assignSocket(); };
+    TCPSocket(QObject* parent = 0)
+    { (void)parent; assignSocket(); };
     
     ~TCPSocket()
     { delete m_socket; m_socket = NULL; }

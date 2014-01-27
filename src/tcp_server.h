@@ -21,13 +21,14 @@ signals:
     void clientDisconnected(TCPSocket* client);
     
 public:
-    TCPServer()
+    TCPServer(QObject* parent = 0)
     {
+        (void)parent;
         m_server = new QTcpServer(this);
         
         QObject::connect(m_server, &QTcpServer::newConnection,
         [=]() {
-            TCPSocket *client = new TCPSocket();
+            TCPSocket *client = new TCPSocket(this);
             client->assignSocket(m_server->nextPendingConnection());
             
             QObject::connect(client, &TCPSocket::read,
