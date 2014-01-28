@@ -33,26 +33,7 @@ TestCase {
         }
     }
     
-    TCPSocket {
-        id: socket
-        host: "localhost"
-        port: server.port
-        
-        property var verified: false
-        property var response: ""
-        property var expected: /Welcome/
-        
-        onRead: {
-            response += message
-            write("Thanks, Server!")
-        }
-        onDisconnected: {
-            test.verify(response!="", "No response from server")
-            test.verify(response.search(expected)>=0, 
-                           "Unrecognized response from server: %1".arg(response))
-            verified = true
-        }
-    }
+    ServerTestSocket { id: socket; test: test }
     
     function wait_for_disconnect() { while(socket.state!=0) { wait(0) } }
     
