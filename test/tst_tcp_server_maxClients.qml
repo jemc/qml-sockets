@@ -36,6 +36,9 @@ TestCase {
                            "Unrecognized response from client: %1".arg(response))
             verified_count += 1
         }
+        
+        // This tests that using a delegate doesn't break with multiple clients
+        clientDelegate: TCPSocket { }
     }
     
     ServerTestSocket { id:socket1; test:test }

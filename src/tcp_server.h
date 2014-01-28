@@ -4,6 +4,7 @@
 
 #include <QtNetwork>
 #include <QQmlComponent>
+#include <QQmlEngine>
 
 #include "tcp.h"
 
@@ -15,14 +16,12 @@ class TCPServer : public QObject
     Q_PROPERTY(uint port MEMBER m_port NOTIFY portChanged)
     Q_PROPERTY(uint maxClients MEMBER m_maxClients NOTIFY maxClientsChanged)
     Q_PROPERTY(QQmlListProperty<TCPSocket> clients READ clients)
-    // Q_PROPERTY(QList<TCPSocket*> m_clients MEMBER m_clients NOTIFY clientsChanged)
-    Q_PROPERTY(TCPSocket* clientModel MEMBER m_clientModel NOTIFY clientModelChanged)
+    Q_PROPERTY(QQmlComponent* clientDelegate MEMBER m_clientDelegate NOTIFY clientDelegateChanged)
     
 signals:
     void portChanged();
     void maxClientsChanged();
-    // void clientsChanged();
-    void clientModelChanged();
+    void clientDelegateChanged();
     
     void clientRead(TCPSocket* client, const QString &message);
     void clientConnected(TCPSocket* client);
@@ -43,15 +42,18 @@ public:
             if(m_maxClients!=0 && (uint)m_clients.count()>=m_maxClients)
                 return;
             
-            if(m_clientModel!=NULL)
+            // If the clientDelegate was specified, try to instantiate it
+            if(m_clientDelegate!=NULL)
             {
-                // client = qobject_cast<TCPSocket*>(m_clientModel->create());
-                client = m_clientModel;
+                client = qobject_cast<TCPSocket*>( \
+                    m_clientDelegate->create(QQmlEngine::contextForObject(this)));
+                
                 if(client==NULL)
-                    printf("WARNING: TCPServer's clientModel component must be"\
+                    qWarning("TCPServer's clientDelegate component must be"\
                            " a TCPSocket.  Using default TCPSocket instead.\n");
             };
             
+            // Otherwise, instantiate the default
             if(client==NULL)
                 client = new TCPSocket(this);
             
@@ -62,11 +64,13 @@ public:
             // Assign the new connection to inside the client wrapper object
             client->assignSocket(client_sock);
             
+            // on client.read, emit clientRead
             QObject::connect(client, &TCPSocket::read,
             [=](const QString &message) {
                 emit clientRead(client, message);
             });
             
+            // on client.disconncted, emit clientDisconnected
             QObject::connect(client, &TCPSocket::disconnected,
             [=]() {
                 m_clients.removeAll(client);
@@ -77,6 +81,7 @@ public:
                 m_server->newConnection();
             });
             
+            // emit clientConnected
             m_clients.append(client);
             
             emit clientConnected(client);
@@ -87,6 +92,7 @@ public:
     ~TCPServer()
     { delete m_server; m_server = NULL; }
     
+    // Create the clients QML list property to expose the m_clients QList
     QQmlListProperty<TCPSocket> clients()
     { return QQmlListProperty<TCPSocket>(
         (QObject*)this, 
@@ -95,13 +101,6 @@ public:
             { return static_cast< QList<TCPSocket *> *>(prop->data)->count(); },
         [=](QQmlListProperty<TCPSocket> *prop, int index) 
             { return static_cast< QList<TCPSocket *> *>(prop->data)->at(index); }); }
-    
-    // int clientsCount(QQmlListProperty<TCPSocket> *prop)
-    // { return static_cast< QList<TCPSocket *> *>(prop->data)->count(); }
-    
-    // TCPSocket* clientsAtIndex(QQmlListProperty<TCPSocket> *prop, int index)
-    // { return static_cast< QList<TCPSocket *> *>(prop->data)->at(index); }
-    
     
 public slots:
     void listen()
@@ -112,7 +111,7 @@ public:
     uint m_maxClients = 0;
     QList<TCPSocket*> m_clients;
     QTcpServer* m_server = NULL;
-    TCPSocket* m_clientModel = NULL;
+    QQmlComponent* m_clientDelegate = NULL;
 };
 
 #endif

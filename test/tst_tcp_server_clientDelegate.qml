@@ -6,7 +6,7 @@ import org.jemc.qml.Sockets 1.0
 
 TestCase {
     id: test
-    name: "TCPServer#clientModel"
+    name: "TCPServer#clientDelegate"
     
     TCPServer {
         id: server
@@ -14,7 +14,7 @@ TestCase {
         
         property var verified: false
         
-        clientModel: TCPSocket {
+        clientDelegate: TCPSocket {
             property var response: ""
             property var expected: /Thanks/
             
