@@ -70,6 +70,8 @@ public slots:
     
     void write(QString message)
     {
+        if(m_state!=QAbstractSocket::BoundState) connect();
+        
         QByteArray datagram = message.toLocal8Bit();
         m_socket->writeDatagram(datagram.data(), datagram.size(),
                                 QHostAddress(m_group), m_port);
