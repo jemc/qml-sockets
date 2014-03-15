@@ -15,7 +15,7 @@ class TCPServer : public QObject
     
     Q_PROPERTY(uint port MEMBER m_port NOTIFY portChanged)
     Q_PROPERTY(uint maxClients MEMBER m_maxClients NOTIFY maxClientsChanged)
-    Q_PROPERTY(QQmlListProperty<TCPSocket> clients READ clients)
+    // Q_PROPERTY(QQmlListProperty<TCPSocket> clients READ clients)
     Q_PROPERTY(QQmlComponent* clientDelegate MEMBER m_clientDelegate NOTIFY clientDelegateChanged)
     
 signals:
@@ -92,15 +92,15 @@ public:
     ~TCPServer()
     { delete m_server; m_server = NULL; }
     
-    // Create the clients QML list property to expose the m_clients QList
-    QQmlListProperty<TCPSocket> clients()
-    { return QQmlListProperty<TCPSocket>(
-        (QObject*)this, 
-        (void*)&m_clients, 
-        [=](QQmlListProperty<TCPSocket> *prop) 
-            { return static_cast< QList<TCPSocket *> *>(prop->data)->count(); },
-        [=](QQmlListProperty<TCPSocket> *prop, int index) 
-            { return static_cast< QList<TCPSocket *> *>(prop->data)->at(index); }); }
+    // // Create the clients QML list property to expose the m_clients QList
+    // QQmlListProperty<TCPSocket> clients()
+    // { return QQmlListProperty<TCPSocket>(
+    //     (QObject*)this, 
+    //     (void*)&m_clients, 
+    //     [=](QQmlListProperty<TCPSocket> *prop) 
+    //         { return static_cast< QList<TCPSocket *> *>(prop->data)->count(); },
+    //     [=](QQmlListProperty<TCPSocket> *prop, int index) 
+    //         { return static_cast< QList<TCPSocket *> *>(prop->data)->at(index); }); }
     
 public slots:
     void listen()
