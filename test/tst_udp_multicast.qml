@@ -14,10 +14,9 @@ TestCase {
         port: 9131
         
         property var verified: false
-        property var response: ""
-        property var expected: /HTTP\/[^\n]* OK/
+        property var lastRead
         
-        onRead: response += message
+        onRead: lastRead = message
     }
     
     function wait_for_connect()    { while(socket.state!=4) { wait(0) } }
@@ -27,10 +26,10 @@ TestCase {
         socket.connect()
         wait_for_connect()
         
-        compare(socket.response, "")
+        compare(socket.lastRead, undefined)
         socket.write("test")
         wait(100)
-        compare(socket.response, "test")
+        compare(socket.lastRead, "test")
         
         socket.disconnect()
         wait_for_disconnect()
