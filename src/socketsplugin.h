@@ -16,7 +16,7 @@ class SocketsPlugin : public QQmlExtensionPlugin
 public:
     void registerTypes(const char *uri)
     {
-        qmlRegisterType<TCPSocket>(uri,          1, 0, "TCPSocket");
+        qmlRegisterType<TCPSocket>(uri,          1, 0, "AbstractTCPSocket");
         qmlRegisterType<TCPServer>(uri,          1, 0, "TCPServer");
         qmlRegisterType<UDPMulticastSocket>(uri, 1, 0, "UDPMulticastSocket");
     };

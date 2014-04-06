@@ -1,2 +1,4 @@
 module org.jemc.qml.Sockets
 plugin socketsplugin
+
+TCPSocket  1.0  qml/TCPSocket.qml

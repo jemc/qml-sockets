@@ -32,3 +32,10 @@ INSTALLS    += target qmldir
 
 # Copy the qmldir file to the same folder as the plugin binary
 QMAKE_POST_LINK += $$QMAKE_COPY $$replace($$list($$quote($$SRCDIR/qmldir) $$DESTDIR), /, $$QMAKE_DIR_SEP)
+
+# Copy the qml implementation directory
+copyqml.commands = $(COPY_DIR) $$SRCDIR/qml $$DESTDIR
+first.depends = $(first) copyqml
+export(first.depends)
+export(copyqml.commands)
+QMAKE_EXTRA_TARGETS += first copyqml
