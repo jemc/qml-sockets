@@ -19,7 +19,7 @@ TestCase {
     Component.onCompleted: {
       reset()
       compare(socket.expression,
-              /(.*?)[\r\n]+/, "default expression is as expected")
+              undefined, "expression matching is disabled by default")
     }
     
     onClientConnected: {
