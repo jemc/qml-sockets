@@ -11,7 +11,7 @@ AbstractTCPSocket {
   
   // When the expression is matched in the buffer,
   // match is signalled with the matching string
-  signal match(string preMatchString, string matchString)
+  signal match(string preMatchString, string matchString, var matchCaptures)
   
   // The buffer of text waiting to be matched.
   // This buffer is cleared to an empty string in onConnected
@@ -24,13 +24,13 @@ AbstractTCPSocket {
     matchBuffer += message
     
     // Pull out each match and pre-match and trigger the signal
-    var str, idx, pre
-    while(str = matchBuffer.match(expression)) {
+    var data, idx, str, pre
+    while(data = matchBuffer.match(expression)) {
       idx = matchBuffer.search(expression)
-      str = str[0]
+      str = data[0]
       pre = matchBuffer.slice(0, idx)
       matchBuffer = matchBuffer.slice(str.length+idx)
-      match(pre, str)
+      match(pre, str, data.slice(1))
     }
   }
 }
