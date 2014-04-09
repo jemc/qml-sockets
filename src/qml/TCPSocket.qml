@@ -11,7 +11,7 @@ AbstractTCPSocket {
   
   // When the expression is matched in the buffer,
   // match is signalled with the matching string
-  signal match(string preMatchString, string matchString, var matchCaptures)
+  signal match(string matchString, var matchCaptures, string preMatchString)
   
   // The buffer of text waiting to be matched.
   // This buffer is cleared to an empty string in onConnected
@@ -30,7 +30,7 @@ AbstractTCPSocket {
       str = data[0]
       pre = matchBuffer.slice(0, idx)
       matchBuffer = matchBuffer.slice(str.length+idx)
-      match(pre, str, data.slice(1))
+      match(str, data.slice(1), pre)
     }
   }
 }
