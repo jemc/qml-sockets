@@ -32,11 +32,15 @@ TestCase {
     port: 4998
     
     property var matches
+    property var preMatches
     
-    function reset() { matches = [] }
+    function reset() { matches = []; preMatches = [] }
     Component.onCompleted: reset()
     
-    onMatch: matches.push(matchString)
+    onMatch: {
+      matches   .push(   matchString)
+      preMatches.push(preMatchString)
+    }
     
     onConnected: {
       test.compare(socket.matchBuffer, "", "matchBuffer reset on connect")
@@ -71,5 +75,21 @@ TestCase {
     
     compare(socket.matches, expected)
     compare(socket.matchBuffer, the_rest)
+  }
+  
+  function test_prematch() {
+    socket.reset()
+    server.reset()
+    
+    socket.expression = /[a-z]+(?=[^a-z])/
+    server.welcome  = "!foo_ba"
+    server.welcome2 = "r_99_baz!!!"
+    
+    socket.connect()
+    wait_for_disconnect()
+    
+    compare(socket.matches, ["foo","bar","baz"])
+    compare(socket.preMatches, ["!","_","_99_"])
+    compare(socket.matchBuffer, "!!!")
   }
 }
