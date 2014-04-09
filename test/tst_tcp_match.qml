@@ -59,14 +59,17 @@ TestCase {
         
         socket.expression = /(.*?)[\r\n]+/
         
-        var welcome = ["Welcome\n","the\r","new\n\r","client\r\n"]
+        var welcome  = "Welcome\nthe\rlovely "
+        var welcome2 = "new\n\rclient\r\n"
         var the_rest = "the_rest"
-        server.welcome = welcome.join('')+the_rest
+        server.welcome  = welcome
+        server.welcome2 = welcome2+the_rest
+        var expected = ["Welcome\n","the\r","lovely new\n\r","client\r\n"]
         
         socket.connect()
         wait_for_disconnect()
         
-        compare(socket.matches, welcome)
+        compare(socket.matches, expected)
         compare(socket.matchBuffer, the_rest)
     }
 }
