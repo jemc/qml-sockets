@@ -1,3 +1,5 @@
 ^Makefile$
 ^build/
 \.sublime-\w+$
+^\.git/
+^plugin\.pro\.user$
