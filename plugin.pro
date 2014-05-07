@@ -10,7 +10,14 @@ uri = org.jemc.qml.Sockets
 
 DESTDIR  = $$[QT_INSTALL_QML]/$$replace(uri, \\., /)
 SRCDIR   = $$PWD/src
-BUILDDIR = $$PWD/build
+BUILDDIR  = $$PWD/build/native
+
+android {
+  VENDORDIR = $$PWD/vendor/prefix/$(TOOLCHAIN_NAME)
+  BUILDDIR  = $$PWD/build/$(TOOLCHAIN_NAME)
+  QMAKE_LIBDIR += $$VENDORDIR/lib
+  QMAKE_INCDIR += $$VENDORDIR/include
+}
 
 HEADERS += $$SRCDIR/socketsplugin.h \
            $$SRCDIR/tcp.h           \
