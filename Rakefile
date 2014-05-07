@@ -1,7 +1,7 @@
 
 require 'qt/commander'
 
-task :default => :android
+task :default => :test
 
 task :android do
   Qt::Commander::Creator.profiles.select(&:android?).each do |profile|
