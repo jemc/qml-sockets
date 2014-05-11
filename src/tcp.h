@@ -27,9 +27,16 @@ signals:
   void expressionChanged();
   void matchBufferChanged();
   
-  void read(const QString &message);
+  void read(const QString& message);
   void connected();
   void disconnected();
+  
+  // When the expression is matched in the matchBuffer,
+  // match will be signalled with the match data
+  void match(
+    const QString&     matchString,
+    const QStringList& matchCaptures,
+    const QString&     preMatchString);
   
 public:
   TCPSocket(QObject* parent = 0)
