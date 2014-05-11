@@ -5,7 +5,6 @@ import org.jemc.qml.Sockets 1.0
 
 
 AbstractTCPSocket {
-  
   // The expression to scan for in the incoming buffer
   property var expression
   
