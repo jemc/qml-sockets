@@ -40,7 +40,7 @@ signals:
   
 public:
   TCPSocket(QObject* parent = 0)
-  { (void)parent; m_expression.setPattern(""); assignSocket(); };
+  { (void)parent; assignSocket(); };
   
   ~TCPSocket()
   { delete m_socket; m_socket = NULL; }
@@ -70,6 +70,27 @@ public:
     
     QObject::connect(m_socket, &QAbstractSocket::disconnected,
       [=]() { emit disconnected(); });
+    
+    QObject::connect(this, &TCPSocket::read,
+      [=](const QString& buffer) {
+      
+      // Expression matching is disabled by default to save memory (matchBuffer)
+      if(!m_expression.isEmpty()) {
+        // Append the new message to the buffer
+        m_matchBuffer.append(buffer);
+        
+        // Pull out each match and pre-match and trigger the match signal
+        QString str, pre;
+        int idx;
+        while(-1 != (idx = m_expression.indexIn(m_matchBuffer))) {
+          str = m_expression.capturedTexts()[0];
+          pre = m_matchBuffer.left(idx);
+          m_matchBuffer = m_matchBuffer.remove(0, str.length()+idx);
+          emit match(str, m_expression.capturedTexts().mid(1), pre);
+        }
+      }
+    });
+    
   }
   
 public slots:

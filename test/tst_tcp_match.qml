@@ -62,7 +62,7 @@ TestCase {
     socket.reset()
     server.reset()
     
-    socket.expression = /(.*?)[\r\n]+/
+    socket.expression = /([^\r\n]*)[\r\n]+/
     
     server.welcome  = "Welcome\nthe\rlovely "
     server.welcome2 = "new\n\rclient\r\nthe_rest"
