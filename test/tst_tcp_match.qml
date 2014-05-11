@@ -19,7 +19,7 @@ TestCase {
     Component.onCompleted: {
       reset()
       compare(socket.expression,
-              undefined, "expression matching is disabled by default")
+              /(?:)/, "expression matching is disabled by default")
     }
     
     onClientConnected: {

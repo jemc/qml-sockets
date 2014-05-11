@@ -6,9 +6,6 @@ import org.jemc.qml.Sockets 1.0
 
 AbstractTCPSocket {
   
-  // The expression to scan for in the incoming buffer
-  property var expression
-  
   // When the expression is matched in the buffer,
   // match is signalled with the matching string
   signal match(string matchString, var matchCaptures, string preMatchString)
@@ -21,7 +18,7 @@ AbstractTCPSocket {
   
   onRead: {
     // Expression matching is disabled by default to save memory (matchBuffer)
-    if(expression !== undefined) {
+    if(expression.source !== '(?:)') {
       // Append the new message to the buffer
       matchBuffer += message
       

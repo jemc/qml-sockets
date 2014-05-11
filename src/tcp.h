@@ -12,13 +12,17 @@ class TCPSocket : public QObject
   
   Q_PROPERTY(QString host    MEMBER m_host    NOTIFY hostChanged)
   Q_PROPERTY(uint    port    MEMBER m_port    NOTIFY portChanged)
-  Q_PROPERTY(QAbstractSocket::SocketState state \
-                 MEMBER m_state   NOTIFY stateChanged)
+  Q_PROPERTY(QAbstractSocket::SocketState state
+                 MEMBER m_state      NOTIFY stateChanged)
+  
+  Q_PROPERTY(QRegExp expression
+                 MEMBER m_expression NOTIFY expressionChanged)
   
 signals:
   void hostChanged();
   void portChanged();
   void stateChanged();
+  void expressionChanged();
   
   void read(const QString &message);
   void connected();
@@ -26,7 +30,7 @@ signals:
   
 public:
   TCPSocket(QObject* parent = 0)
-  { (void)parent; assignSocket(); };
+  { (void)parent; m_expression.setPattern(""); assignSocket(); };
   
   ~TCPSocket()
   { delete m_socket; m_socket = NULL; }
@@ -72,6 +76,8 @@ public:
   QString m_host;
   uint    m_port;
   QAbstractSocket::SocketState m_state;
+  QRegExp m_expression;
+  
   QTcpSocket *m_socket = NULL;
 };
 
