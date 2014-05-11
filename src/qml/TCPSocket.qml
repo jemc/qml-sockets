@@ -10,12 +10,6 @@ AbstractTCPSocket {
   // match is signalled with the matching string
   signal match(string matchString, var matchCaptures, string preMatchString)
   
-  // The buffer of text waiting to be matched.
-  // This buffer is cleared to an empty string in onConnected
-  property string matchBuffer: ""
-  
-  onConnected: matchBuffer = ""
-  
   onRead: {
     // Expression matching is disabled by default to save memory (matchBuffer)
     if(expression.source !== '(?:)') {
