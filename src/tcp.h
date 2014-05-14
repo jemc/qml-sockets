@@ -71,7 +71,7 @@ public slots:
 public:
   QString m_host;
   uint    m_port;
-  QAbstractSocket::SocketState m_state;
+  QAbstractSocket::SocketState m_state = QAbstractSocket::UnconnectedState;
   QTcpSocket *m_socket = NULL;
 };
 
