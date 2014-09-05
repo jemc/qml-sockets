@@ -12,8 +12,12 @@ task :android do
   end
 end
 
-task :test do
-  system "qmake *.pro && make && qmltestrunner"
+task :install do
+  system "qmake *.pro && make"
+end
+
+task :test => :install do
+  system "qmltestrunner"
 end
 
 task :clean do
