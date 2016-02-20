@@ -18,7 +18,7 @@ android {
   QMAKE_INCDIR += $$VENDORDIR/include
 }
 
-HEADERS += $$SRCDIR/qml-sockets.h \
+HEADERS += $$SRCDIR/qml-sockets.h   \
            $$SRCDIR/tcp.h           \
            $$SRCDIR/tcp_server.h    \
            $$SRCDIR/udp_multicast.h
