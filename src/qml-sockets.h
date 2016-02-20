@@ -8,7 +8,7 @@
 #include "udp_multicast.h"
 
 
-class SocketsPlugin : public QQmlExtensionPlugin
+class QmlSocketsPlugin : public QQmlExtensionPlugin
 {
   Q_OBJECT
   Q_PLUGIN_METADATA(IID "org.qt-project.Qt.QQmlExtensionInterface")
