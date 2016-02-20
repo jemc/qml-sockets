@@ -13,7 +13,7 @@ task :android do
 end
 
 task :install do
-  system "qmake *.pro && make"
+  system "qmake *.pro && make && make install"
 end
 
 task :test => :install do
