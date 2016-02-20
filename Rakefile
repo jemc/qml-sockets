@@ -7,7 +7,7 @@ task :android do
   Qt::Commander::Creator.profiles.select(&:android?).each do |profile|
     profile.toolchain.env do
       system "#{profile.version.qmake} *.pro -spec android-g++" and
-      system "make"
+      system "make && make install"
     end
   end
 end
