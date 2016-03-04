@@ -12,8 +12,8 @@ SRCDIR    = $$PWD/src
 DESTDIR   = $$PWD/build/native
 
 android {
-  VENDORDIR = $$PWD/vendor/prefix/$(TOOLCHAIN_NAME)
-  DESTDIR   = $$PWD/build/$(TOOLCHAIN_NAME)
+  VENDORDIR = $$PWD/vendor/prefix/$$ANDROID_TARGET_ARCH
+  DESTDIR   = $$PWD/build/$$ANDROID_TARGET_ARCH
   QMAKE_LIBDIR += $$VENDORDIR/lib
   QMAKE_INCDIR += $$VENDORDIR/include
 }
